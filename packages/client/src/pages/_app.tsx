@@ -1,15 +1,14 @@
+"use client";
 import { AppProps } from 'next/app';
-
-import { ToastContainer } from "react-toastify";
 
 import '@/styles/globals.css';
 import '@/styles/colors.css';
-import "react-toastify/ReactToastify.min.css";
 
 import Header from '@/components/layout/Header';
 
 import { useIsSsr } from '../utils/ssr';
 import Providers from '@/components/Providers';
+import { MetaMaskProvider } from '@/hooks';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const isSsr = useIsSsr();
@@ -24,12 +23,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           min-h-screen
           bg-[#0F1923]
           bg-[url("/svg/background.svg")]
+          text-white
         '
       >
       <Providers>
-        <Header />
+        <MetaMaskProvider>
+          <Header />
           <Component {...pageProps} />
-        <ToastContainer position="bottom-right" newestOnTop />
+        </MetaMaskProvider>
       </Providers>
     </div>
   );
