@@ -107,7 +107,7 @@ export default function HomePage() {
                   onClick={handleSendHelloClick}
                   disabled={!state.installedSnap}
                 >
-                  Send message
+                  Get Pools Infomation
                 </CustomButton>
               }
             />
