@@ -1,5 +1,6 @@
 import { heading, OnCronjobHandler, OnRpcRequestHandler } from '@metamask/snaps-sdk';
 import { panel, text } from '@metamask/snaps-sdk';
+import { isObject, Json } from "@metamask/utils"
 
 async function getNotification() {
   const response = await fetch(
@@ -32,44 +33,57 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
   switch (request.method) {
     case 'hello':
       return getPoolInfo().then((response) => {
-          const { data } = JSON.parse(response)
-          return snap.request({
-            method: 'snap_dialog',
-            params: {
-              type: 'confirmation',
-              content: panel([
-                heading('AAVE Pools Infomations: '),
-                text(`Pool: ${data[0].name}`),
-                text(`APY: ${data[0].supplyAPY}`),
-                text(`IsIsolated: ${data[0].isIsolated}`),
-                text('-----------------------------'),
-                text(`Pool: ${data[1].name}`),
-                text(`APY: ${data[1].supplyAPY}`),
-                text(`IsIsolated: ${data[1].isIsolated}`),
-                text('-----------------------------'),
-                text(`Pool: ${data[2].name}`),
-                text(`APY: ${data[2].supplyAPY}`),
-                text(`IsIsolated: ${data[2].isIsolated}`),
-                text('-----------------------------'),
-                text(`Pool: ${data[3].name}`),
-                text(`APY: ${data[3].supplyAPY}`),
-                text(`IsIsolated: ${data[3].isIsolated}`),
-                text('-----------------------------'),
-                text(`Pool: ${data[4].name}`),
-                text(`APY: ${data[4].supplyAPY}`),
-                text(`IsIsolated: ${data[4].isIsolated}`),
-                text('-----------------------------'),
-                text(`Pool: ${data[5].name}`),
-                text(`APY: ${data[5].supplyAPY}`),
-                text(`IsIsolated: ${data[5].isIsolated}`),
-                text('-----------------------------'),
-                text(`Pool: ${data[6].name}`),
-                text(`APY: ${data[6].supplyAPY}`),
-                text(`IsIsolated: ${data[6].isIsolated}`),
-              ]),
-            },
-          });
-        })
+        // const { data } = JSON.parse(response)
+        return snap.request({
+          method: 'snap_dialog',
+          params: {
+            type: 'confirmation',
+            content: panel([
+              text(`Hello, **${origin}**!`),
+              text('This custom confirmation is just for display purposes.'),
+              text(
+                'But you can edit the snap source code to make it do something, if you want to!',
+              ),
+            ]),
+          },
+        });
+        // return snap.request({
+        //   method: 'snap_dialog',
+        //   params: {
+        //     type: 'confirmation',
+        //     content: panel([
+        //       heading('AAVE Pools Infomations: '),
+        //       text(`Pool: ${data[0].name}`),
+        //       text(`APY: ${data[0].supplyAPY}`),
+        //       text(`IsIsolated: ${data[0].isIsolated}`),
+        //       text('-----------------------------'),
+        //       text(`Pool: ${data[1].name}`),
+        //       text(`APY: ${data[1].supplyAPY}`),
+        //       text(`IsIsolated: ${data[1].isIsolated}`),
+        //       text('-----------------------------'),
+        //       text(`Pool: ${data[2].name}`),
+        //       text(`APY: ${data[2].supplyAPY}`),
+        //       text(`IsIsolated: ${data[2].isIsolated}`),
+        //       text('-----------------------------'),
+        //       text(`Pool: ${data[3].name}`),
+        //       text(`APY: ${data[3].supplyAPY}`),
+        //       text(`IsIsolated: ${data[3].isIsolated}`),
+        //       text('-----------------------------'),
+        //       text(`Pool: ${data[4].name}`),
+        //       text(`APY: ${data[4].supplyAPY}`),
+        //       text(`IsIsolated: ${data[4].isIsolated}`),
+        //       text('-----------------------------'),
+        //       text(`Pool: ${data[5].name}`),
+        //       text(`APY: ${data[5].supplyAPY}`),
+        //       text(`IsIsolated: ${data[5].isIsolated}`),
+        //       text('-----------------------------'),
+        //       text(`Pool: ${data[6].name}`),
+        //       text(`APY: ${data[6].supplyAPY}`),
+        //       text(`IsIsolated: ${data[6].isIsolated}`),
+        //     ]),
+        //   },
+        // });
+      })
     default:
       throw new Error('Method not found.');
   }
@@ -81,7 +95,7 @@ export const onCronjob: OnCronjobHandler = async ({ request }) => {
       case 'notifyPoolChanged':
         return getNotification().then( response => {
           if(JSON.parse(response).notifications !== "" ) {
-            return snap.request({
+            snap.request({
               method: 'snap_notify',
               params: {
                 type: 'inApp',
