@@ -1,4 +1,3 @@
-
 import { useContext } from 'react';
 
 import { MetamaskActions, MetaMaskContext } from '@/hooks';
@@ -53,14 +52,14 @@ export default function HomePage() {
   return (
     <Layout>
       <div className='container mx-auto'>
-        <h1 className='text-center m-8'>
+        <h1 className='m-8 text-center'>
           Welcome to <span className='text-[#FF4081]'>Aave-snap</span>
         </h1>
-        { !isMetaMaskReady &&
+        {!isMetaMaskReady && (
           <div className='m-8'>
             <InstallFlask />
           </div>
-        }
+        )}
 
         <div className='grid grid-cols-2 gap-4'>
           {!state.installedSnap && (
@@ -73,7 +72,7 @@ export default function HomePage() {
                     onClick={handleConnectClick}
                     disabled={!isMetaMaskReady}
                   >
-                    <FlaskBox/>
+                    <FlaskBox />
                     Connect
                   </CustomButton>
                 }
@@ -91,7 +90,7 @@ export default function HomePage() {
                     onClick={handleConnectClick}
                     disabled={!state.installedSnap}
                   >
-                    <FlaskBox/>
+                    <FlaskBox />
                     Reconnect
                   </CustomButton>
                 }
@@ -103,12 +102,14 @@ export default function HomePage() {
             <Card
               title='Send Hello message'
               content='Display a custom message within a confirmation screen in MetaMask.'
-              button={<CustomButton
-                onClick={handleSendHelloClick}
-                disabled={!state.installedSnap}
-              >
-                Send message
-              </CustomButton>}
+              button={
+                <CustomButton
+                  onClick={handleSendHelloClick}
+                  disabled={!state.installedSnap}
+                >
+                  Send message
+                </CustomButton>
+              }
             />
           </div>
         </div>

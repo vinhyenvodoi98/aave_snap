@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { AppProps } from 'next/app';
 
 import '@/styles/globals.css';
@@ -19,14 +19,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <div
-        className='
-          w-full
+      className='
           min-h-screen
+          w-full
           bg-[#0F1923]
           bg-[url("/svg/background.svg")]
           text-white
         '
-      >
+    >
       <Providers>
         <MetaMaskProvider>
           <Header />

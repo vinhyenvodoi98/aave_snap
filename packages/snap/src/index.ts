@@ -1,4 +1,4 @@
-import type { OnRpcRequestHandler } from '@metamask/snaps-sdk';
+import { heading, OnCronjobHandler, OnRpcRequestHandler } from '@metamask/snaps-sdk';
 import { panel, text } from '@metamask/snaps-sdk';
 
 /**
@@ -22,15 +22,34 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
         params: {
           type: 'confirmation',
           content: panel([
-            text(`Hello, **${origin}**!`),
-            text('This custom confirmation is just for display purposes.'),
-            text(
-              'But you can edit the snap source code to make it do something, if you want to!',
-            ),
+            heading('AAVE Pools notification'),
+            text('High Risk'),
+            text('**Network**: Ethereum Mainnet'),
+            text('You received this alert because this attack may interact with contract you subscribed to: **Aave WETH V3**'),
           ]),
         },
       });
     default:
       throw new Error('Method not found.');
+  }
+};
+
+export const onCronjob: OnCronjobHandler = async ({ request }) => {
+  try {
+    switch (request.method) {
+      case 'getPools':
+        // snap.request({
+        //   method: 'snap_notify',
+        //   params: {
+        //     type: 'inApp',
+        //     message: ,
+        //   },
+        // });
+
+      default:
+      // throw new Error('Snap: Method not found.');
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

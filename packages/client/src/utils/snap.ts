@@ -10,7 +10,7 @@ import type { GetSnapsResponse, Snap } from '../types';
  * @returns The snaps installed in MetaMask.
  */
 export const getSnaps = async (
-  provider?: MetaMaskInpageProvider,
+  provider?: MetaMaskInpageProvider
 ): Promise<GetSnapsResponse> =>
   (await (provider ?? window.ethereum).request({
     method: 'wallet_getSnaps',
@@ -23,7 +23,7 @@ export const getSnaps = async (
  */
 export const connectSnap = async (
   snapId: string = defaultSnapOrigin,
-  params: Record<'version' | string, unknown> = {},
+  params: Record<'version' | string, unknown> = {}
 ) => {
   await window.ethereum.request({
     method: 'wallet_requestSnaps',
@@ -45,7 +45,7 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
 
     return Object.values(snaps).find(
       (snap) =>
-        snap.id === defaultSnapOrigin && (!version || snap.version === version),
+        snap.id === defaultSnapOrigin && (!version || snap.version === version)
     );
   } catch (error) {
     console.log('Failed to obtain installed snap', error);

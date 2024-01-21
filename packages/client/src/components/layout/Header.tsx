@@ -6,14 +6,14 @@ export default function Header() {
   return (
     <header className='sticky top-0 z-50'>
       <div className='layout flex items-center justify-between'>
-        <div className='navbar rounded-box m-5 bg-[#1e2832] border-[#00BFA5] border-b border-l'>
+        <div className='navbar rounded-box m-5 border-b border-l border-[#00BFA5] bg-[#1e2832]'>
           <div className='flex-1'>
-          <Link href='/'>
-            <button className='btn btn-ghost text-xl text-white'>Home</button>
-          </Link>
+            <Link href='/'>
+              <button className='btn btn-ghost text-xl text-white'>Home</button>
+            </Link>
           </div>
           <div className='flex-none'>
-          <ConnectKitButton />
+            <ConnectKitButton />
           </div>
         </div>
       </div>
