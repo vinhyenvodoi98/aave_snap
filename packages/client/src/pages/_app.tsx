@@ -4,11 +4,12 @@ import { AppProps } from 'next/app';
 import '@/styles/globals.css';
 import '@/styles/colors.css';
 
+import { MetaMaskProvider } from '@/hooks';
+
 import Header from '@/components/layout/Header';
+import Providers from '@/components/Providers';
 
 import { useIsSsr } from '../utils/ssr';
-import Providers from '@/components/Providers';
-import { MetaMaskProvider } from '@/hooks';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const isSsr = useIsSsr();

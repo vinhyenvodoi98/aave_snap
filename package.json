@@ -1,0 +1,16 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -n snap,frontend \"cd packages/snap && pnpm run start\" \"cd packages/client && pnpm run dev\"",
+    "lint": "cd packages/client && pnpm lint:fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.1.0"
+  }
+}

@@ -1,8 +1,14 @@
 
-import Layout from '@/components/layout/Layout';
-import InstallFlask from '@/components/InstallFlask';
 import { useContext } from 'react';
+
 import { MetamaskActions, MetaMaskContext } from '@/hooks';
+
+import { CustomButton } from '@/components/Button';
+import Card from '@/components/Card';
+import FlaskBox from '@/components/FlaskBox';
+import InstallFlask from '@/components/InstallFlask';
+import Layout from '@/components/layout/Layout';
+
 import { defaultSnapOrigin } from '@/config';
 
 import {
@@ -12,9 +18,6 @@ import {
   sendHello,
   shouldDisplayReconnectButton,
 } from '../utils';
-import { CustomButton } from '@/components/Button';
-import FlaskBox from '@/components/FlaskBox';
-import Card from '@/components/Card';
 
 export default function HomePage() {
   const [state, dispatch] = useContext(MetaMaskContext);
