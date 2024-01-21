@@ -83,15 +83,15 @@ export default function HomePage() {
           {shouldDisplayReconnectButton(state.installedSnap) && (
             <div className='my-8'>
               <Card
-                title='Reconnect'
-                content='While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.'
+                title='Reinstall'
+                content='Reinstall metamask snap'
                 button={
                   <CustomButton
                     onClick={handleConnectClick}
                     disabled={!state.installedSnap}
                   >
                     <FlaskBox />
-                    Reconnect
+                    Reinstall
                   </CustomButton>
                 }
               />
@@ -100,8 +100,8 @@ export default function HomePage() {
 
           <div className='my-8'>
             <Card
-              title='Send Hello message'
-              content='Display a custom message within a confirmation screen in MetaMask.'
+              title='Check AAVE Pool Info'
+              content="Displays information about aave's pools"
               button={
                 <CustomButton
                   onClick={handleSendHelloClick}
