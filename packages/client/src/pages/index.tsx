@@ -52,18 +52,18 @@ export default function HomePage() {
   return (
     <Layout>
       <div className='container mx-auto'>
-        <h1 className='m-8 text-center'>
+        <h1 className='my-8 text-center'>
           Welcome to <span className='text-[#FF4081]'>Aave-snap</span>
         </h1>
         {!isMetaMaskReady && (
-          <div className='m-8'>
+          <div className='my-8'>
             <InstallFlask />
           </div>
         )}
 
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-2 gap-8'>
           {!state.installedSnap && (
-            <div className='m-8'>
+            <div className='my-8'>
               <Card
                 title='Connect'
                 content='Get started by connecting to and installing the example snap'
@@ -81,7 +81,7 @@ export default function HomePage() {
           )}
 
           {shouldDisplayReconnectButton(state.installedSnap) && (
-            <div className='m-8'>
+            <div className='my-8'>
               <Card
                 title='Reconnect'
                 content='While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.'
@@ -98,7 +98,7 @@ export default function HomePage() {
             </div>
           )}
 
-          <div className='m-8'>
+          <div className='my-8'>
             <Card
               title='Send Hello message'
               content='Display a custom message within a confirmation screen in MetaMask.'

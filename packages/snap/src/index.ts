@@ -1,6 +1,20 @@
 import { heading, OnCronjobHandler, OnRpcRequestHandler } from '@metamask/snaps-sdk';
 import { panel, text } from '@metamask/snaps-sdk';
 
+async function getNotification() {
+  const response = await fetch(
+    `https://aave-snap.vercel.app/api/notifications`
+    );
+  return response.text();
+}
+
+async function getPoolInfo() {
+  const response = await fetch(
+    `https://aave-snap.vercel.app/api/pools`
+    );
+  return response.text();
+}
+
 /**
  * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
  *
@@ -17,18 +31,45 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
 }) => {
   switch (request.method) {
     case 'hello':
-      return snap.request({
-        method: 'snap_dialog',
-        params: {
-          type: 'confirmation',
-          content: panel([
-            heading('AAVE Pools notification'),
-            text('High Risk'),
-            text('**Network**: Ethereum Mainnet'),
-            text('You received this alert because this attack may interact with contract you subscribed to: **Aave WETH V3**'),
-          ]),
-        },
-      });
+      return getPoolInfo().then((response) => {
+          const { data } = JSON.parse(response)
+          return snap.request({
+            method: 'snap_dialog',
+            params: {
+              type: 'confirmation',
+              content: panel([
+                heading('AAVE Pools Infomations: '),
+                text(`Pool: ${data[0].name}`),
+                text(`APY: ${data[0].supplyAPY}`),
+                text(`IsIsolated: ${data[0].isIsolated}`),
+                text('-----------------------------'),
+                text(`Pool: ${data[1].name}`),
+                text(`APY: ${data[1].supplyAPY}`),
+                text(`IsIsolated: ${data[1].isIsolated}`),
+                text('-----------------------------'),
+                text(`Pool: ${data[2].name}`),
+                text(`APY: ${data[2].supplyAPY}`),
+                text(`IsIsolated: ${data[2].isIsolated}`),
+                text('-----------------------------'),
+                text(`Pool: ${data[3].name}`),
+                text(`APY: ${data[3].supplyAPY}`),
+                text(`IsIsolated: ${data[3].isIsolated}`),
+                text('-----------------------------'),
+                text(`Pool: ${data[4].name}`),
+                text(`APY: ${data[4].supplyAPY}`),
+                text(`IsIsolated: ${data[4].isIsolated}`),
+                text('-----------------------------'),
+                text(`Pool: ${data[5].name}`),
+                text(`APY: ${data[5].supplyAPY}`),
+                text(`IsIsolated: ${data[5].isIsolated}`),
+                text('-----------------------------'),
+                text(`Pool: ${data[6].name}`),
+                text(`APY: ${data[6].supplyAPY}`),
+                text(`IsIsolated: ${data[6].isIsolated}`),
+              ]),
+            },
+          });
+        })
     default:
       throw new Error('Method not found.');
   }
@@ -37,15 +78,18 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
 export const onCronjob: OnCronjobHandler = async ({ request }) => {
   try {
     switch (request.method) {
-      case 'getPools':
-        // snap.request({
-        //   method: 'snap_notify',
-        //   params: {
-        //     type: 'inApp',
-        //     message: ,
-        //   },
-        // });
-
+      case 'notifyPoolChanged':
+        return getNotification().then( response => {
+          if(JSON.parse(response).notifications !== "" ) {
+            return snap.request({
+              method: 'snap_notify',
+              params: {
+                type: 'inApp',
+                message: JSON.parse(response).notifications,
+              },
+            });
+          }
+        })
       default:
       // throw new Error('Snap: Method not found.');
     }
