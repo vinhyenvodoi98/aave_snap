@@ -10,7 +10,7 @@ import {
   formatReservesAndIncentives,
   formatUserSummaryAndIncentives,
 } from '@aave/math-utils';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { ethers } from 'ethers';
 
 // https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3Sepolia.sol
