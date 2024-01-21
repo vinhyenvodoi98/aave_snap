@@ -82,7 +82,7 @@ export const onCronjob: OnCronjobHandler = async ({ request }) => {
       case 'notifyPoolChanged':
         return getNotification().then( response => {
           if(JSON.parse(response).notifications !== "" ) {
-            snap.request({
+            return snap.request({
               method: 'snap_notify',
               params: {
                 type: 'inApp',
