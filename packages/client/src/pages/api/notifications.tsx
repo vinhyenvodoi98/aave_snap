@@ -30,12 +30,12 @@ export default async function handler(
       const filtered_pool = filtered.filter(({id}) => id === pool.id)[0]
       const objIndex = storage.findIndex((obj => obj.id === pool.id));
 
-      if (Number(filtered_pool.totalLiquidityUSD) >= Number(pool.totalLiquidityUSD) + 100000) {
+      if (Number(filtered_pool.totalLiquidityUSD) >= Number(pool.totalLiquidityUSD) + 10000) {
         notification = `[AAVE] Pool ${pool.name}: + ${Number(filtered_pool.totalLiquidityUSD) - Number(pool.totalLiquidityUSD)}`
         storage[objIndex].totalLiquidityUSD = filtered_pool.totalLiquidityUSD;
         break;
       }
-      if (Number(filtered_pool.totalLiquidityUSD) <= Number(pool.totalLiquidityUSD) - 100000) {
+      if (Number(filtered_pool.totalLiquidityUSD) <= Number(pool.totalLiquidityUSD) - 10000) {
         notification = `[AAVE] Pool ${pool.name}: - ${Number(filtered_pool.totalLiquidityUSD) - Number(pool.totalLiquidityUSD)}`
         storage[objIndex].totalLiquidityUSD = filtered_pool.totalLiquidityUSD;
         break;
